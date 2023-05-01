@@ -1,5 +1,6 @@
 package com.shop.repository;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shop.contant.ItemSellStatus;
 import com.shop.entity.Item;
 import org.junit.jupiter.api.DisplayName;
@@ -8,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")
 class ItemRepositoryTest {
+    
+    @PersistenceContext
+    EntityManager em;
 
     @Autowired
     ItemRepository itemRepository;
@@ -22,11 +28,11 @@ class ItemRepositoryTest {
     @DisplayName("상품 저장 테스트")
     public void createItemTest(){
         Item item = new Item();
-        item.setItemNm("테스트 상품");
-        item.setPrice(10000);
-        item.setItemDetail("테스트 상품 상세 설명");
+        item.setItemNm("bs");
+        item.setPrice(1);
+        item.setItemDetail("detail");
         item.setItemSellStatus(ItemSellStatus.SELL);
-        item.setStockNumber(100);
+        item.setStockNumber(1);
         item.setRegTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
         Item savedItem = itemRepository.save(item);
@@ -84,11 +90,20 @@ class ItemRepositoryTest {
 
     @Test
     @DisplayName("nativeQuery 속성을 이용한 상품 조회 테스트")
-    public void findByItemDetailByNative(){
+    public void findByItemDetailByNativeTest(){
         this.createItemTest();
         List<Item> itemList = itemRepository.findByItemDetailByNative("테스트 상품 상세 설명");
         for(Item item : itemList){
             System.out.println(item.toString());
         }
     }
+//    @Test
+//    @DisplayName("Querydsl 조회 테스트 1")
+//    public void queryDslTest(){
+//        this.createItemTest();
+//        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+//        Object QItem;
+//        QItem qItem = QItem.item;
+//        JPA
+//    }
 }
