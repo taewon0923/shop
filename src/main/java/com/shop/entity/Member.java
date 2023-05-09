@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity{
 
     @Id
     @Column(name="member_id")
@@ -56,8 +56,6 @@ public class Member {
         member.setPassword(password);
         member.setRole(Role.ADMIN);
         return member;
-
-
     }
 
 }

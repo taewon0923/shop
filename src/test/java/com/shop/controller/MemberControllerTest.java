@@ -40,7 +40,6 @@ public class MemberControllerTest {
         Member member = Member.createMember(memberFormDto, passwordEncoder);
         return memberService.saveMember(member);
     }
-
     @Test
     @DisplayName("로그인 성공 테스트")
     public void loginSuccessTest() throws Exception {

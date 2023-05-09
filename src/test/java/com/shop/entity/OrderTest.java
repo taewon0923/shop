@@ -3,7 +3,9 @@ package com.shop.entity;
 import com.shop.contant.ItemSellStatus;
 import com.shop.repository.ItemRepository;
 import com.shop.repository.MemberRepository;
+import com.shop.repository.OrderItemRepository;
 import com.shop.repository.OrderRepository;
+import lombok.ToString;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +100,21 @@ public class OrderTest {
         em.flush();
     }
 
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
+    @Test
+    @DisplayName("지연 로딩 테스트")
+    public void LazyLoadingTest(){
+        Order order = this.createOrder();
+        Long orderItemId = order.getOrderItems().get(0).getId();
+        em.flush();
+        em.clear();
+
+        OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
+        System.out.println("Order class : " +orderItem.getOrder().getClass());
+        System.out.println("===============================");
+        orderItem.getOrder().getOrderDate();
+        System.out.println("===============================");
+    }
 }
