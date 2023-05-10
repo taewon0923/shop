@@ -11,10 +11,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="member")
-@Getter
-@Setter
+@Getter @Setter
 @ToString
-public class Member extends BaseEntity{
+public class Member extends BaseEntity {
 
     @Id
     @Column(name="member_id")
@@ -33,21 +32,7 @@ public class Member extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
-//
-//        Member member = new Member();
-//        member.setName(memberFormDto.getName());
-//        member.setEmail(memberFormDto.getEmail());
-//        member.setAddress(memberFormDto.getAddress());
-//        String password = passwordEncoder.encode(memberFormDto.getPassword());
-//        member.setPassword(password);
-//        member.setRole(Role.USER);
-//        return member;
-//
-//
-//    }
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
-
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
