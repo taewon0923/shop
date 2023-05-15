@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
-@WebAppConfiguration
+@TestPropertySource(locations="classpath:application-test.properties")
 class ItemServiceTest {
 
     @Autowired
@@ -40,7 +40,7 @@ class ItemServiceTest {
         List<MultipartFile> multipartFileList = new ArrayList<>();
 
         for(int i=0;i<5;i++){
-            String path = "/Users/ytw/Desktop/shop/";
+            String path = "/Users/ytw/Desktop/fileupload/item";
             String imageName = "image" + i + ".jpg";
             MockMultipartFile multipartFile =
                     new MockMultipartFile(path, imageName, "image/jpg", new byte[]{1,2,3,4});
